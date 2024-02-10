@@ -1,1 +1,1 @@
-To run the tests run run.bat
+#To run the tests run run.bat
