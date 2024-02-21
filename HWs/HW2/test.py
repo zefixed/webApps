@@ -86,6 +86,15 @@ test_data = {
         ("5", "[0, 1, 1, 8, 27]"),
         ("10", "[0, 1, 1, 8, 27, 125, 512, 2197, 9261, 39304]"),
     ],
+    "compute_average_scores": [
+        ("5 3\n89 90 78 93 80\n90 91 85 88 86\n91 92 83 89 90.5", "90.0\n91.0\n82.0\n90.0\n85.5"),
+        ("3 3\n89 90 78\n90 91 85\n91 92 83", "90.0\n91.0\n82.0"),
+        ("3 3\n0 0 0\n0 0 0\n0 0 0", "0.0\n0.0\n0.0"),
+        ("3 3\n100 100 100\n100 100 100\n100 100 100", "100.0\n100.0\n100.0"),
+    ],
+    "phone_number": [
+        ("3\n07895462130\n89875641230\n9195969878", "+7 (789) 546-21-30\n+7 (987) 564-12-30\n+7 (919) 596-98-78"),
+    ],
 }
 
 from fact import fact_rec, fact_it
@@ -97,6 +106,7 @@ from my_sum_argv import my_sum_argv
 from files_sort import files_sort
 from file_search import file_search
 from email_validation import filter_mail
+from average_scores import compute_average_scores
 
 @pytest.mark.parametrize("input_data, expected", test_data["fact"])
 def test_fact_it(input_data, expected):
@@ -147,10 +157,18 @@ def test_file_search(input_data, expected):
     command, filename, *args  = input_data
     assert subprocess.check_output([command, filename, *args], encoding="cp1251").strip().replace("\r", "") == expected
     
-@pytest.mark.parametrize("input_data, expected", test_data['email_validation']) # 4 tests
+@pytest.mark.parametrize("input_data, expected", test_data['email_validation'])
 def test_email_validation(input_data, expected):
     assert run_script('email_validation.py', [input_data]) == expected
     
-@pytest.mark.parametrize("input_data, expected", test_data['fibonacci']) # 4 tests
+@pytest.mark.parametrize("input_data, expected", test_data['fibonacci'])
 def test_fibonacci(input_data, expected):
     assert run_script('fibonacci.py', [input_data]) == expected
+    
+@pytest.mark.parametrize("input_data, expected", test_data['compute_average_scores'])
+def test_compute_average_scores(input_data, expected):
+    assert run_script('average_scores.py', [input_data]) == expected
+    
+@pytest.mark.parametrize("input_data, expected", test_data['phone_number'])
+def test_phone_number(input_data, expected):
+    assert run_script('phone_number.py', [input_data]) == expected
