@@ -92,11 +92,20 @@ test_data = {
         ("3 3\n0 0 0\n0 0 0\n0 0 0", "0.0\n0.0\n0.0"),
         ("3 3\n100 100 100\n100 100 100\n100 100 100", "100.0\n100.0\n100.0"),
     ],
+    "plane_angle": [
+        ("0 1 0\n0 0 0\n1 0 0\n0 0 1", "90.00"),
+    ],
     "phone_number": [
         ("3\n07895462130\n89875641230\n9195969878", "+7 (789) 546-21-30\n+7 (987) 564-12-30\n+7 (919) 596-98-78"),
     ],
-    "phone_number": [
-        ("5\nAndr Bus 30 M\nMike Thomson 20 M\nRobert Bustle 32 M\nAndria Bustle 30 F\nAndr Bus 30 M", ""),
+    "people_sort": [
+        ("3\nMike Thomson 20 M\nRobert Bustle 32 M\nAndria Bustle 30 F", "Mr. Mike Thomson\nMs. Andria Bustle\nMr. Robert Bustle"),
+        ("5\nAndr Bus 30 M\nMike Thomson 20 M\nRobert Bustle 32 M\nAndria Bustle 30 F\nAndr Bus 30 M", "Mr. Mike Thomson\nMr. Andr Bus\nMs. Andria Bustle\nMr. Andr Bus\nMr. Robert Bustle"),
+    ],
+    "complex_numbers": [
+        ("2 1\n5 6", "7.00+7.00i\n-3.00-5.00i\n4.00+17.00i\n0.26-0.11i\n2.24+0.00i\n7.81+0.00i"),
+        ("1 0\n1 0", "2.00+0.00i\n0.00+0.00i\n1.00+0.00i\n1.00+0.00i\n1.00+0.00i\n1.00+0.00i"),
+        ("123 456\n789 987", "912.00+1443.00i\n-666.00-531.00i\n-353025.00+481185.00i\n0.34+0.15i\n472.30+0.00i\n1263.60+0.00i"),
     ],
 }
 
@@ -172,6 +181,18 @@ def test_fibonacci(input_data, expected):
 def test_compute_average_scores(input_data, expected):
     assert run_script('average_scores.py', [input_data]) == expected
     
+@pytest.mark.parametrize("input_data, expected", test_data['plane_angle'])
+def test_plane_angle(input_data, expected):
+    assert run_script('plane_angle.py', [input_data]) == expected
+    
 @pytest.mark.parametrize("input_data, expected", test_data['phone_number'])
 def test_phone_number(input_data, expected):
     assert run_script('phone_number.py', [input_data]) == expected
+    
+@pytest.mark.parametrize("input_data, expected", test_data['people_sort'])
+def test_people_sort(input_data, expected):
+    assert run_script('people_sort.py', [input_data]) == expected
+    
+@pytest.mark.parametrize("input_data, expected", test_data['complex_numbers'])
+def test_complex_numbers(input_data, expected):
+    assert run_script('complex_numbers.py', [input_data]) == expected

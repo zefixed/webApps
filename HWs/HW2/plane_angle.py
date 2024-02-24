@@ -28,8 +28,9 @@ class Point:
 def plane_angle(a: Point, b: Point, c: Point, d: Point):
     x = Point(*(b - a).cross(c - b))
     y = Point(*(c - b).cross(d - c))
-    print(x.cross(y) / (x.absolute() * y.absolute()))
+    return f"{math.degrees(math.acos(x.dot(y) / (x.absolute() * y.absolute()))):.2f}"
     
 
 if __name__ == '__main__':
-    plane_angle(Point(5, 6, 3), Point(1, 7, 4), Point(2, 6, 9), Point(2, 4, 8))
+    # print(plane_angle(Point(0, 1, 0), Point(0, 0, 0), Point(1, 0, 0), Point(0, 0, 1)))
+    print(plane_angle(Point(*list(map(int, input().split()))), Point(*list(map(int, input().split()))), Point(*list(map(int, input().split()))), Point(*list(map(int, input().split())))))
