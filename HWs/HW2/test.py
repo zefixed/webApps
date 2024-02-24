@@ -95,6 +95,9 @@ test_data = {
     "phone_number": [
         ("3\n07895462130\n89875641230\n9195969878", "+7 (789) 546-21-30\n+7 (987) 564-12-30\n+7 (919) 596-98-78"),
     ],
+    "phone_number": [
+        ("5\nAndr Bus 30 M\nMike Thomson 20 M\nRobert Bustle 32 M\nAndria Bustle 30 F\nAndr Bus 30 M", ""),
+    ],
 }
 
 from fact import fact_rec, fact_it
