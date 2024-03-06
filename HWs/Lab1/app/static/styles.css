@@ -5,3 +5,7 @@ body {
 .avatar {
     max-width: 100%;
 }
+
+.inner-comment{
+    margin-left: 5rem;
+}
