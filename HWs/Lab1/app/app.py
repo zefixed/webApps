@@ -42,7 +42,6 @@ posts_list = sorted([generate_post(i) for i in range(5)],
 def index():
     return render_template("index.html")
 
-
 @app.route("/posts")
 def posts():
     return render_template("posts.html", title="Посты", posts=posts_list)
@@ -60,4 +59,4 @@ def about():
 
 
 if __name__ == "__main__":
-    application.run(debug=False)
+    application.run(debug=True)
