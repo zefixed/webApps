@@ -1,5 +1,4 @@
 import math
-import numpy as np
 
 
 class Point:
@@ -14,26 +13,27 @@ class Point:
     def __str__(self):
         return f"({self.x}, {self.y}, {self.z})"
 
-    def _toList(self) -> list[int]:
-        return [self.x, self.y, self.z]
-
     def dot(self, a):
-        return np.dot(self._toList(), a._toList())
+        return self.x * a.x + self.y * a.y + self.z * a.z
 
     def cross(self, a):
-        return np.cross(self._toList(), a._toList())
+        return Point(self.y * a.z - self.z * a.y,
+                     self.z * a.x - self.x * a.z,
+                     self.x * a.y - self.y * a.x)
 
     def absolute(self):
         return math.sqrt(self.x ** 2 + self.y ** 2 + self.z ** 2)
 
 
 def plane_angle(a: Point, b: Point, c: Point, d: Point):
-    x = Point(*(b - a).cross(c - b))
-    y = Point(*(c - b).cross(d - c))
-    return f"{math.degrees(math.acos(x.dot(y) / (x.absolute() * y.absolute()))):.2f}"
+    x = (b - a).cross(c - b)
+    y = (c - b).cross(d - c)
+    numerator = x.dot(y)
+    denominator = x.absolute() * y.absolute()
+    angle = math.degrees(math.acos(numerator / denominator))
+    return f"{angle:.2f}"
 
 
 if __name__ == '__main__':
-    # print(plane_angle(Point(0, 1, 0), Point(0, 0, 0), Point(1, 0, 0), Point(0, 0, 1)))
-    print(plane_angle(Point(*list(map(int, input().split()))), Point(*list(map(int, input().split()))),
-          Point(*list(map(int, input().split()))), Point(*list(map(int, input().split())))))
+    print(plane_angle(Point(*map(int, input().split())), Point(*map(int, input().split())),
+                      Point(*map(int, input().split())), Point(*map(int, input().split()))))
